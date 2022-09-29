@@ -9,14 +9,13 @@ namespace ProcessTRAC
         {
             Console.WriteLine("Hello, World!");
 
-            foreach (string file in Directory.EnumerateFiles(
-                pathToFolder, 
-                "*" , 
-                SearchOption.AllDirectories) 
+            foreach (string fileName in Directory.EnumerateFiles(
+                Directory.GetCurrentDirectory(), 
+                "*.json" , 
+                SearchOption.TopDirectoryOnly) 
                 )
             {
-                // do something
-
+                Console.WriteLine(fileName);
             }
 
             return;
