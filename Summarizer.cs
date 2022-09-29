@@ -187,7 +187,7 @@ namespace ProcessTRAC
                         }
                     }
 
-                    sb.AppendLine(ExampleLine(thisComp.SelfRating == counter, numVotes, example));
+                    sb.AppendLine(ExampleLine(thisComp.SelfRating == counter, thisComp.LeaderRating == counter, numVotes, example));
                     counter++;
                 }
                 sb.AppendLine(EndTable());
@@ -208,17 +208,18 @@ namespace ProcessTRAC
         }
         private string StartTable()
         {
-            return "<table border=1><tr><th>Self<br>Rating</th><th>Other<br>Ratings</th><th>Description</th></tr>";
+            return "<table border=1><tr><th>Self<br>Rating</th>th>Leader<br>Rating</th><th>Other<br>Ratings</th><th>Description</th></tr>";
         }
         private string EndTable()
         {
             return "</table>";
         }
-        private string ExampleLine(bool selfRating, int numVotes, string text)
+        private string ExampleLine(bool selfRating, bool leaderRating, int numVotes, string text)
         {
             string sr = selfRating ? "*" : "";
+            string lr = leaderRating ? "*" : "";
             string votes = numVotes==0 ? "" : numVotes.ToString();
-            return $"<tr><td style=\"text-align:center\">{sr}</td><td style=\"text-align:center\">{votes}</td><td  style=\"width:600px\">{text}</td></tr>";
+            return $"<tr><td style=\"text-align:center\">{sr}</td><td style=\"text-align:center\">{lr}</td><td style=\"text-align:center\">{votes}</td><td  style=\"width:600px\">{text}</td></tr>";
         }
     }
 }
