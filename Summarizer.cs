@@ -21,7 +21,7 @@ namespace ProcessTRAC
                 CompetencyNames.Clear();
 
                 String line = sr.ReadToEnd();
-                Console.WriteLine(line);
+                //Console.WriteLine(line);
 
                 var options = new JsonDocumentOptions
                 {

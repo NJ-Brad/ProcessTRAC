@@ -1,0 +1,1 @@
+/usr/local/share/dotnet/dotnet run "/users/bbruce/downloads/trac_brad/self.json" "/users/bbruce/downloads/trac_brad/other_1.json" "/users/bbruce/downloads/trac_brad/other_2.json" "/users/bbruce/downloads/trac_brad/other_3.json" "/users/bbruce/downloads/trac_brad/Other_4.json" "/users/bbruce/downloads/trac_brad/Results.html"

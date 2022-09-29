@@ -9,6 +9,18 @@ namespace ProcessTRAC
         {
             Console.WriteLine("Hello, World!");
 
+            foreach (string file in Directory.EnumerateFiles(
+                pathToFolder, 
+                "*" , 
+                SearchOption.AllDirectories) 
+                )
+            {
+                // do something
+
+            }
+
+            return;
+
             List<Competency> results = new List<Competency>();
 
             try
@@ -36,6 +48,7 @@ namespace ProcessTRAC
 
                 string summary = summarizer.Generate();
 
+                Console.WriteLine(outputFile);
                 File.WriteAllText(outputFile, summary);
             }
             catch (IOException e)
