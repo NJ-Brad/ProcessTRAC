@@ -208,7 +208,7 @@ namespace ProcessTRAC
         }
         private string StartTable()
         {
-            return "<table border=1><tr><th>Self<br>Rating</th>th>Leader<br>Rating</th><th>Other<br>Ratings</th><th>Description</th></tr>";
+            return "<table border=1><tr><th>Self<br>Rating</th><th>Leader<br>Rating</th><th>Other<br>Ratings</th><th>Description</th></tr>";
         }
         private string EndTable()
         {
