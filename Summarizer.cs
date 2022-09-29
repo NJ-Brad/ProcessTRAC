@@ -65,6 +65,45 @@ namespace ProcessTRAC
             // https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/overview?tabs=cli
 
         }
+        public void LoadLeader(StreamReader sr)
+        {
+            try
+            {
+                String line = sr.ReadToEnd();
+
+                var options = new JsonDocumentOptions
+                {
+                    AllowTrailingCommas = true,
+                    CommentHandling = JsonCommentHandling.Skip
+                };
+                using (JsonDocument document = JsonDocument.Parse(line, options))
+                {
+                    JsonElement sections = document.RootElement.GetProperty("sections");
+
+                    foreach (JsonProperty section in sections.EnumerateObject())
+                    {
+                        JsonElement competencies = section.Value.GetProperty("competencies");
+                        foreach (JsonProperty competency in competencies.EnumerateObject())
+                        {
+                            string key = competency.Name;
+
+                            Competency value = Results[key];
+
+                            value.LeaderRating = int.Parse(competency.Value.GetProperty("rating").GetString());
+                        }
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+
+            // https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/overview?tabs=cli
+
+        }
+
         public void LoadOther(StreamReader sr)
         {
             try

@@ -7,7 +7,43 @@ namespace ProcessTRAC
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            bool selfLoaded = false;
+            List<Competency> results = new List<Competency>();
+
+            try
+            {
+                Summarizer summarizer = new Summarizer();
+            // load self
+            foreach (string fileName in Directory.EnumerateFiles(
+                Directory.GetCurrentDirectory(), 
+                "self.json" , 
+                SearchOption.TopDirectoryOnly) 
+                )
+            {
+                using(StreamReader sr = new StreamReader(fileName))
+                {
+                    summarizer.LoadSelf(sr);
+                }
+                selfLoaded = true;
+            }
+            if(!selfLoaded)
+            {
+                Console.WriteLine("There is no self.json in the current directory");
+                return;
+            }
+
+            // load leader
+            foreach (string fileName in Directory.EnumerateFiles(
+                Directory.GetCurrentDirectory(), 
+                "leader.json" , 
+                SearchOption.TopDirectoryOnly) 
+                )
+            {
+                using(StreamReader sr = new StreamReader(fileName))
+                {
+                summarizer.LoadLeader(sr);
+                }
+            }
 
             foreach (string fileName in Directory.EnumerateFiles(
                 Directory.GetCurrentDirectory(), 
@@ -15,35 +51,19 @@ namespace ProcessTRAC
                 SearchOption.TopDirectoryOnly) 
                 )
             {
-                Console.WriteLine(fileName);
+                if(Path.GetFileNameWithoutExtension(fileName).ToUpper() == "SELF")
+                {
+                }
+                if(Path.GetFileNameWithoutExtension(fileName).ToUpper() == "LEADER")
+                {
+                using(StreamReader sr = new StreamReader(fileName))
+                {
+                    summarizer.LoadOther(sr);
+                }
+                }
             }
 
-            return;
-
-            List<Competency> results = new List<Competency>();
-
-            try
-            {
-                Summarizer summarizer = new Summarizer();
-
-                if (args.Length > 0)
-                {
-                    //using (StreamReader sr = new StreamReader(@"c:\users\brad\downloads\self.json"))
-                    using (StreamReader sr = new StreamReader(args[0]))
-                    {
-                        summarizer.LoadSelf(sr);
-                    }
-                }
-
-                for (int i = 1; i < args.Length - 1; i++)
-                {
-                    using (StreamReader sr = new StreamReader(args[i]))
-                    {
-                        summarizer.LoadOther(sr);
-                    }
-                }
-
-                string outputFile = args[args.Length - 1];
+                string outputFile = Path.Combine(Directory.GetCurrentDirectory(), "Results.html");
 
                 string summary = summarizer.Generate();
 

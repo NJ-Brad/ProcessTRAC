@@ -14,6 +14,7 @@ namespace ProcessTRAC
         public string Text = "";
         public List<string> Examples = new List<string>();
         public int SelfRating = -1;
+        public int LeaderRating = -1;
         public List<int> OtherRatings = new List<int>();
     }
 }
